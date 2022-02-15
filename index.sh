@@ -2,6 +2,17 @@
 
 read -p "Enter Project Name: " projectName
 
+echo "Enter the following database credentials which will be written into your .env file."
+
+read -p "Enter database name for the project: "  databaseName
+
+read -p "Enter database username: " databaseUsername
+
+# echo "Enter database password: "
+
+read -p "Enter database password: " databasePassword
+
+
 mkdir $projectName
 
 cd $projectName
@@ -10,41 +21,49 @@ npm init -y
 
 echo "" 
 echo "Adding .gitignore from node..." 
-#npx gitignore node
+npx gitignore node
 echo ".gitignore added successfully!"
-
-echo ""
-
-ls
-cat package.json
-
 
 echo "Installing basic npm packages for the project..."
 
-npm i -s nodemon express morgan moment dotenv knex objection objection-find 
+#npm i -s nodemon mysql2 express morgan moment dotenv knex objection objection-find 
 
 echo ""
 echo "All packages added successfully! "
 echo ""
-
-
-
-
 echo ""
+
+
+
+
 
 
 #now you are inside the project dir
 #copying basic files... 
 
 
-cp -a ./../lib/ ./
-mv -v ./lib/* ./
-rm -r ./lib
+cp -a ./../lib/. ./
+
+# it appends details to .env file
+echo "DB_DATABASE=$databaseName" >> .env
+echo "DB_USERNAME=$databaseUsername" >> .env
+echo "DB_PASSWORD=localpassword" >> .env
+
+
+
+sed -i "s/databaseUsername/$databaseUsername/" database.php
+sed -i "s/databasePassword/$databasePassword/" database.php
+sed -i "s/databaseName/$databaseName/" database.php
+
+
+# execute database query to create a database
+php database.php
+
 
 nodemon
 
 echo "You are good to go..."
-echo "itsmushi@2022" 
+echo "itsmushi@2022"
 
 
 ##tasks
