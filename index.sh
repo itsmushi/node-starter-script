@@ -26,15 +26,12 @@ echo ".gitignore added successfully!"
 
 echo "Installing basic npm packages for the project..."
 
-#npm i -s nodemon mysql2 express morgan moment dotenv knex objection objection-find 
+npm i -s nodemon mysql2 express morgan moment dotenv knex objection objection-find 
 
 echo ""
 echo "All packages added successfully! "
 echo ""
 echo ""
-
-
-
 
 
 
@@ -59,6 +56,7 @@ sed -i "s/databaseName/$databaseName/" database.php
 # execute database query to create a database
 php database.php
 
+knex migrate:up
 
 nodemon
 
