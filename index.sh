@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 
 read -p "Enter Project Name: " projectName
 
@@ -8,10 +8,9 @@ read -p "Enter database name for the project: "  databaseName
 
 read -p "Enter database username: " databaseUsername
 
-# echo "Enter database password: "
+echo -n "Enter database password: "
 
-read -p "Enter database password: " databasePassword
-
+read -s "Enter database password: " databasePassword
 
 mkdir $projectName
 
@@ -26,13 +25,12 @@ echo ".gitignore added successfully!"
 
 echo "Installing basic npm packages for the project..."
 
-npm i -s nodemon mysql2 express morgan moment dotenv knex objection objection-find 
+npm i -s nodemon mysql2 express morgan moment dotenv knex objection objection-find joi
 
 echo ""
 echo "All packages added successfully! "
 echo ""
 echo ""
-
 
 
 #now you are inside the project dir
@@ -55,6 +53,8 @@ sed -i "s/databaseName/$databaseName/" database.php
 
 # execute database query to create a database
 php database.php
+
+rm database.php
 
 knex migrate:up
 
